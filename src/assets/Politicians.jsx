@@ -24,6 +24,7 @@ export default function PoliticiansList() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [filter, setFilter] = useState("");
+  const [positionsFilter, setPositionFilter] = useState("");
 
   useEffect(() => {
     const fetchPoliticians = async () => {
@@ -44,6 +45,16 @@ export default function PoliticiansList() {
     fetchPoliticians();
   }, []);
 
+  const positions = useMemo(() => {
+    const uniquePositions = [];
+    politicians.forEach((p) => {
+      if (!uniquePositions.includes(p.position)) {
+        uniquePositions.push(p.position);
+      }
+    });
+    return uniquePositions;
+  }, [politicians]);
+
   const filterPoliticians = useMemo(() => {
     return politicians.filter((politician) => {
       const isInName = politician.name
@@ -52,9 +63,11 @@ export default function PoliticiansList() {
       const isInBio = politician.biography
         .toLowerCase()
         .includes(filter.toLocaleLowerCase());
-      return isInName || isInBio;
+      const isPositionValid =
+        positionsFilter === "" || positionsFilter === politician.position;
+      return (isInName || isInBio) && isPositionValid;
     });
-  }, [politicians, filter]);
+  }, [politicians, filter, positionsFilter]);
 
   if (loading) return <p>Caricamento in corso...</p>;
   if (error) return <p>Errore: {error.message}</p>;
@@ -69,6 +82,17 @@ export default function PoliticiansList() {
         value={filter}
         onChange={(e) => setFilter(e.target.value)}
       />
+      <select
+        value={positionsFilter}
+        onChange={(e) => setPositionFilter(e.target.value)}
+      >
+        <option value="">Filtra per posizione politica</option>
+        {positions.map((position, index) => (
+          <option key={index} value={position}>
+            {position}
+          </option>
+        ))}
+      </select>
       <div className="container">
         {filterPoliticians.map((p, index) => (
           <MemoizedPoliticianCard key={index} {...p} />

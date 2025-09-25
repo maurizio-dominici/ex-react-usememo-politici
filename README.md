@@ -40,3 +40,11 @@ Migliorare le prestazioni evitando ricalcoli inutili quando il valore della rice
 # Obiettivo:
 
 Se la lista filtrata cambia, solo le nuove card devono essere renderizzate, mentre le altre rimangono in memoria senza essere ridisegnate.
+
+# Bonus: Filtrare anche per posizione politica (position)
+
+1. Creare un array derivato che contiene tutte le posizioni politiche (position) disponibili, ma senza duplicati.
+
+2. Aggiungere un select sopra la lista che permette di filtrare i politici anche in base alla loro posizione.
+
+3. Modificare l’array filtrato per tenere conto sia della stringa di ricerca, sia della posizione selezionata.
