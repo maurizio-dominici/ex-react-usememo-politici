@@ -63,6 +63,15 @@ button:focus-visible {
   justify-content: center;
 }
 
+.container input {
+  padding: "10px";
+  margin: "20px";
+  width: "300px";
+  font-size: "16px";
+  border-radius: "6px";
+  border: "1px solid #ccc";
+}
+
 /* Card individuale */
 .card {
   background-color: #ffffff;
