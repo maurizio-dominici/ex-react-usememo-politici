@@ -1,12 +1,29 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, memo } from "react";
+
+function PoliticianRender({ name, image, position, biography }) {
+  console.log("card");
+
+  return (
+    <div className="card">
+      <div className="card-media">
+        <img src={image} alt={name} />
+      </div>
+      <div className="card-content">
+        <h3>{name}</h3>
+        <span>{position}</span>
+        <p>{biography}</p>
+      </div>
+    </div>
+  );
+}
+
+const MemoizedPoliticianCard = memo(PoliticianRender);
 
 export default function PoliticiansList() {
   const [politicians, setPoliticians] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [filter, setFilter] = useState("");
-  console.log(filter);
-  console.log(politicians);
 
   useEffect(() => {
     const fetchPoliticians = async () => {
@@ -54,16 +71,7 @@ export default function PoliticiansList() {
       />
       <div className="container">
         {filterPoliticians.map((p, index) => (
-          <div key={index} className="card">
-            <div className="card-media">
-              <img src={p.image} alt={p.name} />
-            </div>
-            <div className="card-content">
-              <h3>{p.name}</h3>
-              <span>{p.position}</span>
-              <p>{p.biography}</p>
-            </div>
-          </div>
+          <MemoizedPoliticianCard key={index} {...p} />
         ))}
       </div>
     </>

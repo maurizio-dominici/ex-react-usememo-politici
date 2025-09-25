@@ -28,3 +28,15 @@ Caricare e mostrare i politici in un’interfaccia chiara e leggibile.
 # Obiettivo:
 
 Migliorare le prestazioni evitando ricalcoli inutili quando il valore della ricerca non cambia.
+
+# 📌 Milestone 3: Ottimizzare il rendering delle card con React.memo
+
+1. Attualmente, ogni volta che l’utente digita nella barra di ricerca, tutte le card vengono ri-renderizzate, anche quelle che non sono cambiate.
+
+2. Usa React.memo() per evitare il ri-render delle card quando le loro props non cambiano.
+
+3. Aggiungi un console.log() dentro il componente Card per verificare che venga renderizzato solo quando necessario.
+
+# Obiettivo:
+
+Se la lista filtrata cambia, solo le nuove card devono essere renderizzate, mentre le altre rimangono in memoria senza essere ridisegnate.
